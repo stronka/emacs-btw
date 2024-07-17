@@ -23,6 +23,7 @@
 
 ;; GENERAL UTILITIES PART
 ;; Recent files mode
+(recentf-mode 1)
 
 ;; enable electric-pair-mode for all buffers
 (electric-pair-mode 1)
@@ -35,7 +36,7 @@
 ;; Not sure about how I feel about this yet
 (require 'package)
 (add-to-list 'package-archives '("melpa", "https://melpa.org/packages/"))
-(package-initialize)
+;; (package-initialize)
 
 ;; VI MODE & OTHER VIM FAMILIARITIES
 
