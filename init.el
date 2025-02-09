@@ -1,6 +1,8 @@
 (setq inhibit-startup-message t)
 (setq visible-bell t)
 
+(display-time)
+
 ;; THEME CONFIGURATION
 ;; Adjust UI
 (tool-bar-mode -1)
@@ -66,16 +68,28 @@
 ;; C programming
 (setq compilation-ask-about-save nil)
 
-(defun build-makefile ()
-  (interactive)
-  (compile "make -k"))
+(defun find-makefile-dir ()
+  "Go upwards through the directory structure until a makefile is foud."
+  (let ((makefile-dir (locate-dominating-file default-directory "Makefile")))
+    (if makefile-dir
+	makefile-dir
+      default-directory)))
+
+ (defun build-makefile ()
+   (interactive)
+   (let ((default-directory (find-makefile-dir)))
+     (compile "make -k")))
 
 (defun execute-makefile ()
   (interactive)
-  (compile "make -k run"))
+  (let ((default-directory (find-makefile-dir)))
+  (compile "make -k run")))
 
 (global-set-key (kbd "C-<f9>") 'build-makefile)
 (global-set-key (kbd "C-<f10>") 'execute-makefile)
+
+
+
 ;; END OF PROGRAMMING STUFF
 
 ;; IDK - commented out and stuff doesn't break for me lol
@@ -103,3 +117,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; DIRED
+(setq dired-dwim-target 1)
